@@ -67,65 +67,108 @@ The **passive buzzer** was driven directly from a digital pin with brief tone bu
 ```cpp
 #include <LiquidCrystal.h>
 
-LiquidCrystal lcd(12, 11, 10, 9, 8, 7); // RS, EN, D4, D5, D6, D7
+LiquidCrystal lcd(7, 8, 9, 10, 11, 12);  // RS, E, D4, D5, D6, D7
 
-const int buzzer = 6;
-const int redLED = 3;
-const int blueLED = 4;
-const int button = 2;
+const int BUTTON_PIN = 2;
+const int BUZZER_PIN = 3;
+const int RED_LED = 5;
+const int BLUE_LED = 4;
 
-bool active = false;
-unsigned long lastPress = 0;
-const int debounceDelay = 200;
+const int LED_ON  = HIGH;
+const int LED_OFF = LOW;
 
-void playTone(int freq, int dur){
-  tone(buzzer, freq);
-  delay(dur);
-  noTone(buzzer);
+const unsigned long PAGE_MS = 1600;
+const unsigned long BLINK_MS = 300;
+const unsigned long TONE_GAP_MS = 50;
+
+struct Page {
+  const char* line1;
+  const char* line2;
+};
+
+Page pages[] = {
+  {"<LINE 1>", "<LINE 2>"},
+  {"<LINE 3>", "<LINE 4>"},
+  {"<LINE 5>", "<LINE 6>"}
+};
+
+const int NUM_PAGES = sizeof(pages) / sizeof(pages[0]);
+int notes[] = {262, 294, 330, 349, 392, 440, 494, 523};
+const int NUM_NOTES = sizeof(notes) / sizeof(notes[0]);
+
+void setLEDs(bool redOn, bool blueOn) {
+  digitalWrite(RED_LED, redOn ? LED_ON : LED_OFF);
+  digitalWrite(BLUE_LED, blueOn ? LED_ON : LED_OFF);
+}
+
+void playToneMs(int freq, int durMs) {
+  if (freq <= 0 || durMs <= 0) return;
+  tone(BUZZER_PIN, freq, durMs);
+  delay(durMs + TONE_GAP_MS);
+  noTone(BUZZER_PIN);
+}
+
+void flashPatternStep(int stepIdx) {
+  bool red = (stepIdx % 2 == 0);
+  bool blue = !red;
+  setLEDs(red, blue);
+  playToneMs(notes[stepIdx % NUM_NOTES], 120);
+  delay(BLINK_MS);
+  setLEDs(false, false);
+}
+
+void drawPage(const Page& p) {
+  lcd.clear();
+  lcd.setCursor(0, 0); lcd.print(p.line1);
+  lcd.setCursor(0, 1); lcd.print(p.line2);
+}
+
+void runShow() {
+  for (int i = 0; i < NUM_PAGES; ++i) {
+    drawPage(pages[i]);
+    unsigned long t0 = millis();
+    int step = 0;
+    while (millis() - t0 < PAGE_MS) {
+      flashPatternStep(step++);
+    }
+  }
+
+  lcd.clear();
+  lcd.setCursor(0, 0); lcd.print("<FINALE LINE 1>");
+  lcd.setCursor(0, 1); lcd.print("<FINALE LINE 2>");
+  for (int i = 0; i < 6; ++i) {
+    setLEDs(i % 2, (i + 1) % 2);
+    playToneMs(notes[(i * 2) % NUM_NOTES], 140);
+  }
+  setLEDs(false, false);
+  delay(800);
+  lcd.clear();
+  lcd.print("<PRESS TO REPLAY>");
 }
 
 void setup() {
+  pinMode(BUTTON_PIN, INPUT_PULLUP);
+  pinMode(BUZZER_PIN, OUTPUT);
+  pinMode(RED_LED, OUTPUT);
+  pinMode(BLUE_LED, OUTPUT);
+
+  setLEDs(false, false);
+
   lcd.begin(16, 2);
-  pinMode(buzzer, OUTPUT);
-  pinMode(redLED, OUTPUT);
-  pinMode(blueLED, OUTPUT);
-  pinMode(button, INPUT_PULLUP);
   lcd.clear();
-  lcd.print("Press to Begin");
+  lcd.print("<PRESS TO BEGIN>");
 }
 
 void loop() {
-  if (digitalRead(button) == LOW && millis() - lastPress > debounceDelay) {
-    lastPress = millis();
+  if (digitalRead(BUTTON_PIN) == LOW) {
+    while (digitalRead(BUTTON_PIN) == LOW);
+    delay(50);
+    runShow();
     lcd.clear();
-    lcd.print("Happy Birthday!");
-    
-    digitalWrite(redLED, HIGH);
-    playTone(523, 200);
-    digitalWrite(redLED, LOW);
-    delay(200);
-
-    digitalWrite(blueLED, HIGH);
-    playTone(659, 200);
-    digitalWrite(blueLED, LOW);
-    delay(200);
-
-    lcd.clear();
-    lcd.print("Shine Bright :)");
-    for (int i = 0; i < 4; i++) {
-      digitalWrite(redLED, HIGH);
-      playTone(784, 100);
-      delay(100);
-      digitalWrite(redLED, LOW);
-      digitalWrite(blueLED, HIGH);
-      playTone(880, 100);
-      delay(100);
-      digitalWrite(blueLED, LOW);
-    }
-    lcd.clear();
-    lcd.print("Press to Replay");
+    lcd.print("<PRESS TO BEGIN>");
   }
 }
+
 ```
 
 Prototype Proof:
