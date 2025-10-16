@@ -173,5 +173,5 @@ void loop() {
 
 Prototype Proof:
 
-(Demo Video)
-https://github.com/user-attachments/assets/ea758439-1e10-4a11-b26e-d77baa101c60
+
+https://github.com/user-attachments/assets/7ae75217-6bb5-41c1-8421-7da8b8d64125
