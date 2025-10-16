@@ -102,13 +102,16 @@ void loop(){
 Solved by using two 74HC373 latches to hold the column data. The latch method allowed atomic updates with minimal flicker. 
 
 
-**Excess current concerns**Solved by routing all high-current paths through the ULN2803A array, isolating the Arduino’s I/O pins from LED drive currents. 
+**Excess current concerns**
+Solved by routing all high-current paths through the ULN2803A array, isolating the Arduino’s I/O pins from LED drive currents. 
 
 
-**Twitchy ultrasonic readings**Implemented delay filtering and distance band mapping to stabilize responses. Future versions could use median filtering. 
+**Twitchy ultrasonic readings**
+Implemented delay filtering and distance band mapping to stabilize responses. Future versions could use median filtering. 
 
 
-**Wiring complexity**Managed by keeping all column lines aligned in parallel with shared data bus lines.
+**Wiring complexity**
+Managed by keeping all column lines aligned in parallel with shared data bus lines.
 
 
 ---
