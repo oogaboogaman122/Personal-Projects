@@ -360,7 +360,7 @@ void loop(){
   if (leftSign==0 && rightSign==0 && !brake) writeHBridge(0,0,false);
   else writeHBridge(outL, outR, brake && leftSign==0 && rightSign==0);
 }
-
+```
 
 ## Prototype Proof:
 https://github.com/user-attachments/assets/08b92a20-9a07-4f44-80c4-63731d2354ee
