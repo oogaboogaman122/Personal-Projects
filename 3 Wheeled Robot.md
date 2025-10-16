@@ -4,7 +4,7 @@
 ## Parts:
 MD33A Motor driver<br>
 2 small TT motors (3V, 150ma [No Load])<br>
-1 Tracker ball (Salvage from an old vaccuum cleaner)<br>
+1 Tracker ball (Salvaged from an old vaccuum cleaner)<br>
 Laser cut flat chassis<br>
 ESP32<br>
 Powerbank<br>
