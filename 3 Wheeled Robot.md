@@ -44,7 +44,7 @@ The ESP32 has its own power supply via powerbank for a clean regulated 5v source
 <div align="center">
   <img src="https://github.com/user-attachments/assets/413f6713-7383-4c41-ae99-bbbd2cd54331" width="400">
   <p><i>Top View</i></p>
-
+<br><br>
   <img src="https://github.com/user-attachments/assets/1024f86a-8aba-484c-96d6-a0be3a2bf03a" width="400">
   <p><i>Side View</i></p>
 </div>
