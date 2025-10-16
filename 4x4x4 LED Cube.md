@@ -5,10 +5,15 @@
 1 Darlington Array <br>
 2 octal latches <br>
 250 Ohm Resistors <br>
+Arduino Nano
 
 ## Design and Logic:
-
+Uses multiplexing to drive 64 leds. Led works layer by layer, so technically only about 16 leds are active. each layer has a common cathode thus connecting all the leds at once. you drive each led by the layer its on and the column its on. 
 ## Challenges Faced:
+Dont have a shift register. Had to improvise by using 2 octal latches and daisy chaining them to drive 16 leds. Was worried about too much current going back into my 
+mcu, so I used darlington arrays to sink current. 
+
+
 
 
 ## Prototype proof:
