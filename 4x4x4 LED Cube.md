@@ -23,6 +23,8 @@ The cube operates on a **time-multiplexed display system**, where only one of th
 
 Each layer is connected through the **ULN2803A Darlington array**, which safely sinks the combined current of up to 16 LEDs. The **74HC373 latches** handle the 16 column lines; they store LED states for each layer until refreshed by the microcontroller.
 
+Resistors were included in the circuit to limit the current flowing through each LED and protect both the LEDs and the driver circuitry from excessive current draw. Without them, the LEDs would pull as much current as the circuit allows, quickly overheating or burning out. The value of 250 Ω was chosen because it provides about 11–12 mA of peak current per LED from a 5 V source with a 2.1 V LED drop, which maintains strong brightness while staying within safe electrical limits. Since the cube is multiplexed, each LED is only on 25 % of the time, keeping the average current near 3 mA and preventing overheating. The resistors were placed near the microcontroller output (on the column lines) to ensure current is limited right at the signal source, reducing voltage noise, protecting the logic pins, and keeping the wiring that runs to the LEDs at a safe and stable current level.
+
 This approach avoids the need for shift registers or expensive LED drivers. By writing 16 bits of data (8 per latch) and toggling the latch enable lines, the cube updates all columns instantly without flicker.
 
 When motion is detected via the **ultrasonic sensor**, distance values influence animation selection and timing — for example, closer movement might trigger brighter or faster sequences.
