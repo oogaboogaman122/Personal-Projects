@@ -1,18 +1,21 @@
 This project is a 3 wheeled robot which is programmable as well as remotely controlled over a web page.
 
+
 Parts:
-MD33A Motor driver \n
-2 small TT motors (3V, 150ma [No Load]) \n
-1 Tracker ball (Salvage from an old vaccuum cleaner) \n
-Laser cut flat chassis \n
-ESP32
-Powerbank
-6 Double A batteries
+MD33A Motor driver<br>
+2 small TT motors (3V, 150ma [No Load])<br>
+1 Tracker ball (Salvage from an old vaccuum cleaner)<br>
+Laser cut flat chassis<br>
+ESP32<br>
+Powerbank<br>
+6 Double A batteries<br>
+
 
 Design and Logic:
 
 
 Challenges Faced:
+
 
 Design Improvements:
 
