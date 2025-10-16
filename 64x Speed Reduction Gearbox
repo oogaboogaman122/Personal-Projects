@@ -1,29 +1,31 @@
-# <Project Title>
+# 64:1 Speed Reduction Gearbox (DOCUMENTATION IN PROGESS)
 
 ---
 
 ## Summary
-<Brief overview of what the project does, its purpose, and what makes it unique. One or two paragraphs explaining its core idea or motivation.>
+3 stage speed reduction spur gearbox aiming for 95% theoretical efficiency. All shafts are on the same plane.
 
 ---
 
-## Parts
-- <Component 1>  
-- <Component 2>  
-- <Component 3>  
-(Include voltages, currents, model numbers, or key specs if relevant.)
-
+## Parts 
+### All shafts are 100mm long
+10mm diameter shaft
+12mm diameter shaft
+15.88mm diamter shaft
+Bearings
+Lasercut gears
+custom 3d printed clamps
+custom 3d printed housing
 ---
 
 ## Design and Logic
-<Explain how the circuit, code, or mechanism works. Describe the data flow or control logic.  
-If it’s a physical build, talk about the mechanical or electronic design choices and how everything interacts.>
+This is a speed reduction gearbox with d bore shafts, custom lasercut gears, custom 3d printed clamps and custom 3d printed housing
 
 ---
 
 ## Challenges Faced and Solutions
-<List the key problems you ran into during prototyping or debugging, and what you did to solve or work around them.  
-If some problems weren’t fully solved, note what you learned or what might fix them next time.>
+Assembly problems with screws
+Solution trim screws
 
 ---
 
@@ -33,9 +35,6 @@ Include any advice you’d give yourself or others attempting a similar build.>
 
 ---
 
-## Code
-```cpp
-// Include the main code here if relevant
 ```
 
 
