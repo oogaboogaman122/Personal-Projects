@@ -91,13 +91,14 @@ A B
 #include <WiFi.h>
 #include <WebServer.h>
 
-const char* WIFI_SSID = "YourSSID";
-const char* WIFI_PASS = "YourPassword";
+//Set up bot credentials
 const char* AP_SSID   = "Bot_AP";
 const char* AP_PASS   = "robot123";
 
+//Webserver set up
 WebServer http(80);
 
+//MD33A pins
 const int M1A_PIN = 19, M1B_PIN = 18;   // left
 const int M2A_PIN = 17, M2B_PIN = 16;   // right
 
@@ -117,6 +118,7 @@ const uint32_t KICK_MS       = 80;
 const uint32_t TICK_MS       = 20;
 const uint32_t HOLD_MS       = 120;
 
+//Movement logic
 uint32_t tW=0, tA=0, tS=0, tD=0, tBrake=0;
 bool web_W=false, web_A=false, web_S=false, web_D=false;
 bool web_BRAKE=false, web_BOOST=false;
@@ -126,6 +128,7 @@ int tgtL=0, tgtR=0;
 uint32_t kickL_until=0, kickR_until=0;
 uint32_t lastTick=0;
 
+//Check if button is held down
 inline bool held(uint32_t t, uint32_t now){ return (now - t) < HOLD_MS; }
 inline void rampToward(int &x, int tgt, int step){
   if (x < tgt) x = min(x + step, tgt);
@@ -134,6 +137,7 @@ inline void rampToward(int &x, int tgt, int step){
 
 static inline void pwmWriteCH(int ch, int duty){ ledcWrite(ch, duty); }
 
+//Control one motor
 void writeOneMotor(int chA, int chB, int cmdSigned, bool inverted){
   if (cmdSigned == 0){ pwmWriteCH(chA,0); pwmWriteCH(chB,0); return; }
   const int duty = abs(cmdSigned);
@@ -145,6 +149,7 @@ void writeOneMotor(int chA, int chB, int cmdSigned, bool inverted){
   }
 }
 
+//Control both motors
 void writeHBridge(int pwmL, int pwmR, bool hardBrake){
   if (hardBrake && pwmL==0 && pwmR==0){
     pwmWriteCH(CH_M1A, MAX_DUTY); pwmWriteCH(CH_M1B, MAX_DUTY);
@@ -157,6 +162,7 @@ void writeHBridge(int pwmL, int pwmR, bool hardBrake){
   writeOneMotor(CH_M2A, CH_M2B, pwmR, INV_RIGHT);
 }
 
+//Handle serial input from putty
 void handleSerialKey(char k){
   const uint32_t now = millis();
   if (k=='\r'||k=='\n') return;
