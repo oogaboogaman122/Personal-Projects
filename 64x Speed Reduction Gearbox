@@ -1,0 +1,42 @@
+# <Project Title>
+
+---
+
+## Summary
+<Brief overview of what the project does, its purpose, and what makes it unique. One or two paragraphs explaining its core idea or motivation.>
+
+---
+
+## Parts
+- <Component 1>  
+- <Component 2>  
+- <Component 3>  
+(Include voltages, currents, model numbers, or key specs if relevant.)
+
+---
+
+## Design and Logic
+<Explain how the circuit, code, or mechanism works. Describe the data flow or control logic.  
+If it’s a physical build, talk about the mechanical or electronic design choices and how everything interacts.>
+
+---
+
+## Challenges Faced and Solutions
+<List the key problems you ran into during prototyping or debugging, and what you did to solve or work around them.  
+If some problems weren’t fully solved, note what you learned or what might fix them next time.>
+
+---
+
+## Design Improvements
+<Reflect on what you’d change in a second version — electrical, structural, or code optimizations.  
+Include any advice you’d give yourself or others attempting a similar build.>
+
+---
+
+## Code
+```cpp
+// Include the main code here if relevant
+```
+
+
+## Proof
