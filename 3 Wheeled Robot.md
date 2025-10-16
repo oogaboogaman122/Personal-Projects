@@ -41,9 +41,14 @@ Even though the wiring was improvised, the layout remained efficient, with short
 
 The ESP32 has its own power supply via powerbank for a clean regulated 5v source, while the motors had a roundabout 7.2V supply from the 6 makeshift battery pack.
 
- ![unnamed](https://github.com/user-attachments/assets/413f6713-7383-4c41-ae99-bbbd2cd54331)
- 
-![1000019745](https://github.com/user-attachments/assets/1024f86a-8aba-484c-96d6-a0be3a2bf03a)
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/413f6713-7383-4c41-ae99-bbbd2cd54331" width="400">
+  <p><i>Top View</i></p>
+
+  <img src="https://github.com/user-attachments/assets/1024f86a-8aba-484c-96d6-a0be3a2bf03a" width="400">
+  <p><i>Side View</i></p>
+</div>
+
 
 
 ## Challenges Faced + Solutions
@@ -56,7 +61,6 @@ This caused a **reverse-fulcrum effect**, where acceleration made the robot lean
 Without a battery holder, the six Ni-MH cells were connected in series using duct tape. Initially, jumper wires were used, but they caused poor contact and high resistance.  
 *Solution:* Stripping the wires improved conductivity, but the right approach is to use a **battery holder** or **flat metal connectors** for stable contact and safety.
 
-**
 
 ---
 
