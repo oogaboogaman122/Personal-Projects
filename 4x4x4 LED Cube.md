@@ -129,10 +129,15 @@ Managed by keeping all column lines aligned in parallel with shared data bus lin
 
 ## Proof:
 **(Motion Activated)**  
-https://github.com/user-attachments/assets/4cf554fa-84f7-4b95-b790-a4dea2f1b42d <br>
+
+
+https://github.com/user-attachments/assets/4cf554fa-84f7-4b95-b790-a4dea2f1b42d 
+
 
 **(Programmed)**  
-https://github.com/user-attachments/assets/80ba579c-8529-408b-b6a3-5153667e5b73 <br>
+
+
+https://github.com/user-attachments/assets/80ba579c-8529-408b-b6a3-5153667e5b73 
 
 
 
