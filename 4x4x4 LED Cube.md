@@ -12,7 +12,7 @@ The design intentionally separates logic control and high-current drive to prote
 - **2 × 74HC373 Octal Latches** (column control)  
 - **1 × ULN2803A Darlington Array** (layer sinking)  
 - **Resistors (~250 Ohms)** per column  
-- **Arduino Nano** (ATmega328P)  
+- **Arduino Uno** (ATmega328P)  
 - **HC-SR04 Ultrasonic Sensor**  
 - **5 V Power Supply** (shared logic + LED drive)
 
