@@ -5,8 +5,6 @@ This project designs, analyses, and fabricates a walking robot driven by four-ba
 
 The system satisfies a single degree of freedom (M = 1), meets the Grashof crank-rocker condition for both leg pairs, and achieves transmission angles close to 90° throughout the full rotation cycle, indicating efficient torque transfer and smooth locomotion. The robot achieves a measured walking speed of **0.153 m/s** (2 m in 13 s).
 
-**Group 67** | Rave Bonto (Design & Fabrication) · Jon Lotilla (Design Verification & Analysis)
-
 ---
 
 ## Parts
@@ -185,7 +183,6 @@ Separate figures are generated for the front and back leg velocity profiles acro
 - **Material upgrade** — PLA is suitable for a prototype but brittle under repeated stress. PETG or ABS would improve fatigue life for extended use.
 - **Multi-leg coordination** — Currently front and back legs share a crank but are not actively phased. Introducing a deliberate phase offset between front and back pairs would improve gait stability and reduce tipping.
 - **Terrain adaptability** — The mechanism is tuned for flat surfaces. Adding passive compliance (e.g. spring-loaded foot links) would allow the robot to handle minor surface irregularities.
-- **Motor mounting** — The current assembly does not include a dedicated motor mount or gearbox housing. A proper drivetrain enclosure would improve robustness and replaceability.
 - **Adjustable foot offset** — Making `B_to_P` mechanically adjustable would allow stride length to be tuned without reprinting parts.
 
 ---
