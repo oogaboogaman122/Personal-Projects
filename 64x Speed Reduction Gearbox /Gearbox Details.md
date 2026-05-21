@@ -1,4 +1,4 @@
-# EGB210 Gearbox Project — Group 2.6
+# 3 Stage Spur Gearbox
 
 ## Summary
 
