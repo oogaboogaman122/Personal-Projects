@@ -3,7 +3,9 @@
 
 This project designs, analyses, and fabricates a walking robot driven by four-bar linkage mechanisms. Two independent four-bar linkages — one for the front legs and one for the back legs — are powered by a shared crank (driving link `a`), producing a coordinated gait cycle. The mechanism was modelled in SolidWorks, kinematically verified through a custom Python simulation (`trajectory_finder.py`), and physically fabricated via FDM 3D printing using PLA on a Creality CR-10 Smart Pro.
 
-The system satisfies a single degree of freedom (M = 1), meets the Grashof crank-rocker condition for both leg pairs, and achieves transmission angles close to 90° throughout the full rotation cycle, indicating efficient torque transfer and smooth locomotion.
+The system satisfies a single degree of freedom (M = 1), meets the Grashof crank-rocker condition for both leg pairs, and achieves transmission angles close to 90° throughout the full rotation cycle, indicating efficient torque transfer and smooth locomotion. The robot achieves a measured walking speed of **0.153 m/s** (2 m in 13 s).
+
+**Group 67** | Rave Bonto (Design & Fabrication) · Jon Lotilla (Design Verification & Analysis)
 
 ---
 
@@ -16,7 +18,7 @@ The following components were designed in SolidWorks and 3D printed in PLA:
 | Driving Link | `Driving Link (a).SLDPRT` | Shared crank input for both leg mechanisms |
 | Front Output Link | `Front output.SLDPRT` | Output rocker for the front leg pair |
 | Back Couple (L) | `Back Couple (l).SLDPRT` | Coupler link for the back leg mechanism |
-| Leg Links (b, p) | `Leg Links (b,p).SLDPRT` | Front Coupler, Back Output Link and foot-offset links |
+| Leg Links (b, p) | `Leg Links (b,p).SLDPRT` | Front coupler, back output link and foot-offset links |
 | Cover | `Cover.SLDPRT` | Protective shell cover |
 | Side Shell | `Sideshell.SLDPRT` / `Sideshell - Mirror.SLDPRT` | Left and right chassis side panels |
 | Top Shell | `TopShell.SLDPRT` | Upper enclosure |
@@ -24,9 +26,20 @@ The following components were designed in SolidWorks and 3D printed in PLA:
 
 > STL and G-code files are included for all printed components. Print settings: 0.16 mm nozzle, 210°C nozzle temp, 60°C bed temp, 0.5 mm shaft/hole clearance.
 
+All links feature **male/female interlocking parts** for easy assembly and manufacturing. Non-critical areas include **lightening holes** (filleted cutouts) to reduce mass without compromising structural integrity, and stress concentrations at corners are mitigated by fillets.
+
 ---
 
 ## Design and Logic
+
+### Design Objectives
+
+The mechanism was designed around the following goals:
+
+- **Ideal walking trajectory** — foot path imitates a natural lift phase (leg in the air) and stance phase (foot in contact with the ground)
+- **Low centre of gravity** — shorter leg links reduce tipping moments and improve stability
+- **Low friction** — enables effective torque and energy transfer throughout the gait cycle
+- **Low mass** — lighter construction allows faster walking speed
 
 ### Degree of Freedom
 
@@ -51,29 +64,31 @@ S + L ≤ P + Q
 **Front Mechanism** (d=27.5, a=10, b=20, c=32):
 ```
 10 + 32 ≤ 20 + 27.5
-42 ≤ 47.5  
+42 ≤ 47.5  ✓
 ```
 
 **Back Mechanism** (d=122.1, a=10, b=123, c=20):
 ```
 10 + 123 ≤ 122.1 + 20
-133 ≤ 142.1  (note: back mechanism uses rocker-crank configuration)
+133 ≤ 142.1  ✓
 ```
 
 Both mechanisms satisfy the Grashof condition, enabling full crank rotation from a single motor.
 
 ### Link Length Rationale
 
-| Link | Role | Design Reasoning |
-|---|---|---|
-| Driving link `a` = 10 | Shared crank | Short crank = controlled, stable input motion. Longer cranks produced erratic, jerky foot trajectories. |
-| Front coupler `b` = 20 | Coupler | Determines foot path curvature and arc smoothness. Critical for stride quality. |
-| Front output `c` = 32 | Output rocker | Controls step height and forward reach. Sized to avoid excessive air time (instability). |
-| Front ground `d` = 27.5 | Ground | Sets mechanism scale and positional stability for the front legs. |
-| Back coupler `b` = 123 | Coupler | Long coupler produces a near-linear back foot path, improving stance phase stability. |
-| Back output `c` = 20 | Output rocker | Shorter output limits back leg lift, keeping the rear grounded during propulsion. |
-| Back ground `d` = 122.1 | Ground | Matched to back coupler length for correct Grashof ratio. |
-| Foot offset `B_to_P` | Foot extension | Converts simple joint rotation into a realistic walking stride. Tuned for flat stance and optimal lift. |
+Link lengths were not chosen arbitrarily — a custom Python trajectory simulator was used to test different configurations and find foot paths that most closely resemble natural walking (long flat stance phase + fast symmetrical lift phase).
+
+| Link | Value (mm) | Role | Design Reasoning |
+|---|---|---|---|
+| Driving link `a` | 10 | Shared crank | Short crank = controlled, stable input. Longer cranks produced erratic, jerky foot trajectories. |
+| Front coupler `b` | 20 | Coupler | Determines foot path curvature and arc smoothness. Critical for stride quality. |
+| Front output `c` | 32 | Output rocker | Controls step height and forward reach. Sized to avoid excessive air time. |
+| Front ground `d` | 27.5 | Ground | Sets mechanism scale and positional stability for the front legs. |
+| Back coupler `l` | 123 | Coupler | Chosen approximately equal to `m` — elongated configuration lowers foot path curvature, producing a flatter trajectory, longer horizontal travel, and improved stance duration. |
+| Back output `b` | 20 | Output rocker | Shorter output limits back leg lift, keeping the rear grounded during propulsion. |
+| Back ground `m` | 122.1 | Ground | Derived from chassis geometry: `m = √(122² + 5²) = 122.1 mm`. Matched to back coupler for correct Grashof ratio. |
+| Foot offset `B_to_P` | 8 | Foot extension | Converts joint rotation into a realistic walking stride. Tuned for flat stance and optimal lift clearance. |
 
 ### Transmission Angle
 
@@ -94,7 +109,7 @@ Two analysis tools were developed: a MATLAB script for angular velocity analysis
 
 ### Python — Gait Cycle Simulator (`trajectory_finder.py`)
 
-An interactive PyQtGraph application that animates the full gait cycle in real time. Users can adjust all link lengths and observe the resulting foot trajectories and transmission angles live.
+An interactive PyQtGraph application that animates the full gait cycle in real time. Users can adjust all link lengths and observe the resulting foot trajectories and transmission angles live. This tool was central to the link length selection process.
 
 **Key functions:**
 
@@ -145,7 +160,7 @@ omega_3 = (a * omega_2 * sind(theta_4 - theta_2)) / (b * sind(theta_3 - theta_4)
 omega_4 = (a * omega_2 * sind(theta_2 - theta_3)) / (c * sind(theta_4 - theta_3));
 ```
 
-Separate figures are generated for the front and back leg velocity profiles across the input sweep.
+Separate figures are generated for the front and back leg velocity profiles across the full input sweep.
 
 ---
 
@@ -153,12 +168,14 @@ Separate figures are generated for the front and back leg velocity profiles acro
 
 | Challenge | Solution |
 |---|---|
+| Prototype too heavy and unstable | Reduced leg link lengths to lower the centre of gravity. Moved rear legs further outward to widen the support base and improve gait balance. |
+| Excessive friction in prototype | Increased clearances between male and female parts. Switched to interlocking part geometry to reduce binding at joints. |
+| Unreliable pin-shaft joints in prototype | Replaced pin system with integrated male/female part design for more reliable and repeatable assembly. |
 | Jerky, unstable foot trajectory | Reduced driving link length (`a = 10`). Shorter crank produced smoother, more controlled foot arcs. |
-| Mechanism locking during rotation | Adjusted link ratios to maintain transmission angle within 40°–140° range throughout full crank cycle. Verified computationally. |
-| Back leg trajectory too tall / excessive air time | Lengthened back coupler (`b = 123`) to flatten the foot path, keeping the rear legs closer to the ground during the stance phase. |
+| Mechanism locking during rotation | Adjusted link ratios to maintain transmission angle within 40°–140° range throughout full crank cycle. Verified computationally via `mechanism_valid()`. |
+| Back leg trajectory too tall / excessive air time | Chose back coupler `l ≈ m` (both ~122–123 mm) to create an elongated configuration that flattens the foot path and increases stance phase duration. |
 | 3D printing fit issues (shaft binding) | Applied 0.5 mm clearance between all shaft and hole features across all printed parts. |
-| Front legs reaching too far forward | Tuned output link `c` and foot offset `B_to_P` together to balance stride length against forward reach without causing instability. |
-| Grashof validation failing in simulation | Added `mechanism_valid()` function that sweeps all 360° positions and confirms both Grashof and full-rotation solvability before animating. |
+| Difficult assembly in prototype | Incorporated male/female interlocking features on all links. Redesign made assembly and disassembly straightforward. |
 
 ---
 
@@ -171,12 +188,14 @@ Separate figures are generated for the front and back leg velocity profiles acro
 - **Motor mounting** — The current assembly does not include a dedicated motor mount or gearbox housing. A proper drivetrain enclosure would improve robustness and replaceability.
 - **Adjustable foot offset** — Making `B_to_P` mechanically adjustable would allow stride length to be tuned without reprinting parts.
 
+---
 
 ## Proof
 
-- **Assembly Video**
-  
+**Assembly Video**
 
+[![Watch assembly](https://img.youtube.com/vi/0cOz-wgVECU/0.jpg)](https://youtu.be/0cOz-wgVECU)
 
+**Demo Video**
 
-
+[![Watch the demo](https://img.youtube.com/vi/JxqmznvLmQk/0.jpg)](https://youtube.com/shorts/JxqmznvLmQk)
