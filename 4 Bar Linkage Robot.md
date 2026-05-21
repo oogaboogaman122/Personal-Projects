@@ -5,8 +5,6 @@ This project designs, analyses, and fabricates a walking robot driven by four-ba
 
 The system satisfies a single degree of freedom (M = 1), meets the Grashof crank-rocker condition for both leg pairs, and achieves transmission angles close to 90° throughout the full rotation cycle, indicating efficient torque transfer and smooth locomotion.
 
-**Group 67** | Rave Bonto (Design & Fabrication) · Jon Lotilla (Design Verification & Analysis)
-
 ---
 
 ## Parts
@@ -18,8 +16,7 @@ The following components were designed in SolidWorks and 3D printed in PLA:
 | Driving Link | `Driving Link (a).SLDPRT` | Shared crank input for both leg mechanisms |
 | Front Output Link | `Front output.SLDPRT` | Output rocker for the front leg pair |
 | Back Couple (L) | `Back Couple (l).SLDPRT` | Coupler link for the back leg mechanism |
-| Leg Links (b, p) | `Leg Links (b,p).SLDPRT` | Coupler and foot-offset links |
-| Bar | `bar.SLDPRT` | Ground link / chassis connection |
+| Leg Links (b, p) | `Leg Links (b,p).SLDPRT` | Front Coupler, Back Output Link and foot-offset links |
 | Cover | `Cover.SLDPRT` | Protective shell cover |
 | Side Shell | `Sideshell.SLDPRT` / `Sideshell - Mirror.SLDPRT` | Left and right chassis side panels |
 | Top Shell | `TopShell.SLDPRT` | Upper enclosure |
@@ -54,13 +51,13 @@ S + L ≤ P + Q
 **Front Mechanism** (d=27.5, a=10, b=20, c=32):
 ```
 10 + 32 ≤ 20 + 27.5
-42 ≤ 47.5  ✓
+42 ≤ 47.5  
 ```
 
 **Back Mechanism** (d=122.1, a=10, b=123, c=20):
 ```
 10 + 123 ≤ 122.1 + 20
-133 ≤ 142.1  ✓  (note: back mechanism uses rocker-crank configuration)
+133 ≤ 142.1  (note: back mechanism uses rocker-crank configuration)
 ```
 
 Both mechanisms satisfy the Grashof condition, enabling full crank rotation from a single motor.
@@ -173,3 +170,13 @@ Separate figures are generated for the front and back leg velocity profiles acro
 - **Terrain adaptability** — The mechanism is tuned for flat surfaces. Adding passive compliance (e.g. spring-loaded foot links) would allow the robot to handle minor surface irregularities.
 - **Motor mounting** — The current assembly does not include a dedicated motor mount or gearbox housing. A proper drivetrain enclosure would improve robustness and replaceability.
 - **Adjustable foot offset** — Making `B_to_P` mechanically adjustable would allow stride length to be tuned without reprinting parts.
+
+
+## Proof
+
+- **Assembly Video**
+  
+
+
+
+
